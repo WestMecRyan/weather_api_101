@@ -1,0 +1,13 @@
+[
+    { "name": "Phoenix", "lat": "33.4484", "long": "-112.074" },
+    { "name": "Austin", "lat": "30.2672", "long": "-97.7431" },
+    { "name": "Sacramento", "lat": "38.5816", "long": "-121.4944" },
+    { "name": "Denver", "lat": "39.7392", "long": "-104.9903" },
+    { "name": "Tallahassee", "lat": "30.4383", "long": "-84.2807" },
+    { "name": "Boston", "lat": "42.3601", "long": "-71.0589" },
+    { "name": "Atlanta", "lat": "33.749", "long": "-84.388" },
+    { "name": "Honolulu", "lat": "21.3069", "long": "-157.8583" },
+    { "name": "Boise", "lat": "43.615", "long": "-116.2023" },
+    { "name": "Lincoln", "lat": "40.8136", "long": "-96.7026" }
+]
+
