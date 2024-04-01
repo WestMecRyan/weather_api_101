@@ -9,25 +9,6 @@
 <body>    
     <script>
 
-        console.log('hello');
-        const xhr = new XMLHttpRequest();
-        xhr.open('GET', 'http://localhost:3000/csv-data', true);
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                const data = xhr.responseText;
-                const rows = data.split('\n').slice(1);
-                rows.forEach(elt => {
-                   const row = elt.split(',');
-                    const year = row[0];
-                    const temp = row[1];
-                    console.log(year, temp);
-                })
-                console.log(`CSV Data:`, rows);
-            } else {
-                console.log(`Error:`, xhr.statusText);
-            }
-        }
-    xhr.send();
     </script>
 </body>
 </html>
