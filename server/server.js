@@ -7,7 +7,8 @@ app.use(cors);
 const port = 3000;
 
 app.get('/', (req, res) => { 
-    res.send('hello world');
+    res.sendFile(path.join(__dirname, '..', 'index.html'));
+    //res.send('hello world');
 });
 app.get('/3pm', (req, res) => { 
     res.send('hello 3pm');
