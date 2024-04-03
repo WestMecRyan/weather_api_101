@@ -9,6 +9,21 @@
 <body>    
     hello from Index.html!
     <script>
+        window.addEventListener('load', fetchData);
+        function fetchData() {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', 'http://localhost:3000/csv-data', true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    let data = xhr.responseText;
+                    data = data.split('\n').slice(1);
+                    console.log(data);
+                } else {
+                    console.log('something bad happened', xhr.statusText);
+                }
+            }
+            xhr.send();
+        }
     </script>
 </body>
 </html>
