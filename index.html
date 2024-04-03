@@ -4,29 +4,62 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XHR and Graph</title>
+    <title>Global Average Temperatures</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Include Chart.js -->
 </head>
-<body>    
+<body>
+    <h1>Global Average Temperatures 1880-2023</h1>
+    <canvas id="myChart" width="400" height="200"></canvas>
+
     <script>
-        <h1>Global Average Temperature 1880-2023</h1>
-        const xhr = new XMLHttpRequest();
-        xhr.open('GET', 'http://localhost:3000/csv-data', true);
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                const data = xhr.responseText;
-                const rows = data.split('\n').slice(1);
-                rows.forEach(elt => {
-                   const row = elt.split(',');
-                    const year = row[0];
-                    const temp = row[1];
-                    console.log(year, temp);
-                })
-                console.log(`CSV Data:`, rows);
-            } else {
-                console.log(`Error:`, xhr.statusText);
-            }
+        window.addEventListener('load', fetchData);
+
+        function fetchData() {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', 'http://localhost:3000/csv-data', true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    const data = xhr.responseText;
+                    const globalTemps = processData(data);
+                    renderChart(globalTemps);
+                } else if (xhr.readyState === 4 && xhr.status !== 200) {
+                    console.log(`Error:`, xhr.statusText);
+                }
+            };
+            xhr.send();
         }
-    xhr.send();
+
+        function processData(data) {
+            const years = [];
+            const temps = [];
+            const rows = data.split('\n').slice(1);
+            rows.forEach(row => {
+                const cols = row.split(',');
+                years.push(cols[0]);
+                temps.push(14 + parseFloat(cols[1])); // Assuming you're adjusting temperatures as before
+            });
+            return { years, temps };
+        }
+
+        function renderChart(globalTemps) {
+            const ctx = document.getElementById('myChart').getContext('2d');
+            const myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: globalTemps.years,
+                    datasets: [
+                        {
+                            label: 'Temperature in °C',
+                            data: globalTemps.temps,
+                            fill: false,
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {}
+            });
+        }
     </script>
 </body>
-</html>
